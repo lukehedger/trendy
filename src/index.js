@@ -4,6 +4,10 @@ import { ApolloClient, ApolloProvider, createNetworkInterface } from 'react-apol
 
 import App from './App';
 
+require('../.env')
+
+const { REACT_APP_GITHUB_TOKEN } = process.env
+
 const networkInterface = createNetworkInterface({
   uri: 'https://api.github.com/graphql',
 });
@@ -11,7 +15,7 @@ const networkInterface = createNetworkInterface({
 networkInterface.use([{
   applyMiddleware(req, next) {
     if (!req.options.headers) req.options.headers = {}
-    req.options.headers.authorization = `Bearer ceab737f90d7ca46ba202d762baf0aded07a45a1`;
+    req.options.headers.authorization = `Bearer ${REACT_APP_GITHUB_TOKEN}`;
     next();
   }
 }]);
